@@ -51,7 +51,7 @@ int main() {
 
     //INICIANDO TRANSFORMAÇÃO SAITO TORIWAKI
 
-    int T1[MAX_HEIGHT][MAX_WIDTH];
+    int T1[height][width];
     for(int i=0; i<height; i++){
         for(int j=0; j<width; j++){
             T1[i][j] = 0;
@@ -78,7 +78,7 @@ int main() {
 // -----------------------------------------------------------------------------------------
 
     //Perform the second transformation
-    int TDE[MAX_HEIGHT][MAX_WIDTH];
+    int TDE[height][width];
 
     for(int i=0; i<height; i++){
         for(int j=0; j<width; j++){
@@ -88,19 +88,32 @@ int main() {
 
     // Perform the second transformation
     for (int j = 0; j < width; j++) {
-        for (int i = 0; i < height; i++) {
-            int minDistanceSquared = 999;
-            for (int k = 0; k < height; k++) {
-                int distanceSquared = (i - k) * (i - k) + T1[k][j];
 
-                if (distanceSquared < minDistanceSquared) {
-                    minDistanceSquared = distanceSquared;
+        for (int i = 0; i < height; i++) {
+            int sum = 0; 
+            for (int k = 0; k < height; k++) {
+
+                int p = T1[k][j];
+
+                if(T1[k][j] == 0 && image[k][j] != 1){
+                    p = width*width;
+                }
+                
+                int distanceSquared = ((i - k) * (i - k)) + p;
+
+                if (distanceSquared < sum || sum == 0) {
+                    sum = distanceSquared;
                 }
             }
-
-            TDE[i][j] = minDistanceSquared;
+            if(image[i][j] == 1)
+                TDE[i][j] = 0;
+            else if(image[i][j] == 0){
+                TDE[i][j] = sum;
+            }
+            
         }
     }
+
 // -----------------------------------------------------------------------------------------
     
     printf("Image data:\n");
@@ -112,7 +125,7 @@ int main() {
         printf("\n");
     }
 
-    /*
+    
     printf("\n\n");
     printf("First Transform data\n");
 
@@ -124,8 +137,9 @@ int main() {
         }
         printf("\n");
     }
-    */
+    
 
+   
     printf("\n\n");
     printf("TDE Final data\n");
 
@@ -136,6 +150,6 @@ int main() {
         }
         printf("\n");
     }
-
+    
     return 0;
 }
