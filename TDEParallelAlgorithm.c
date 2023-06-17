@@ -3,16 +3,16 @@
 #include <string.h>
 #include <sys/time.h>
 
-#define MAX_WIDTH 100
-#define MAX_HEIGHT 100
+#define MAX_WIDTH 1000
+#define MAX_HEIGHT 1000
 
 int main()
 {
     double sumOfTimes = 0;
-    for (int i = 0; i < 10000; i++)
+    for (int i = 0; i < 100; i++)
     {
 
-        char filename[] = "./images/test3.pbm"; // Replace with your PBM file path
+        char filename[] = "./images/test6.pbm"; // Replace with your PBM file path
 
         FILE *file = fopen(filename, "r");
         if (file == NULL)
@@ -214,6 +214,6 @@ int main()
     }
 
 // ------------------------------------Print Mean Time--------------------------------------------
-    printf("\n\nMean time of execution: %.3f ms\n", sumOfTimes / 10000);
+    printf("\n\nMean time of execution: %.3f ms\n", sumOfTimes / 100);
     return 0;
 }
