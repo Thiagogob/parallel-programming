@@ -6,8 +6,25 @@
 #define MAX_WIDTH 1000
 #define MAX_HEIGHT 1000
 
+typedef struct TTimes{
+    double time;
+}TTimes;
+
 int main()
 {
+    //opening file to write
+    //This file is going to be used in the python script to plot the graph
+    FILE *textFile = fopen("timesSequential.txt", "w");
+    if (textFile== NULL) {
+        printf("Error opening file!");
+        return 1;
+    }
+
+    //printf("Size of TTimes: %ld\n", sizeof(TTimes));
+
+    //creating a vector of TTimes to store the times
+    TTimes times[100];
+
     double sumOfTimes = 0;
     for (int i = 0; i < 100; i++)
     {
@@ -205,11 +222,14 @@ int main()
         tf = (double)tempo_fim.tv_usec + ((double)tempo_fim.tv_sec * (1000000.0));
         ti = (double)tempo_inicio.tv_usec + ((double)tempo_inicio.tv_sec * (1000000.0));
         tempo = (tf - ti) / 1000;
+        times[i].time = tempo;
+        //printf("%.3f ms\n", times[i].time);
+        fprintf(textFile, "%.3f\n", times[i].time);
         sumOfTimes += tempo;
     }
 
 // ---------------------------------------Print Mean Time------------------------------------------
-
+    fclose(textFile);
     printf("\n\nMean time of execution: %.3f ms\n", sumOfTimes / 100);
     return 0;
 }
