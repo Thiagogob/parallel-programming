@@ -1,12 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/time.h>
 
 #define MAX_WIDTH 100
 #define MAX_HEIGHT 100
 
 
 int main() {
+
+    double ti, tf, tempo;
+    ti = tf = tempo = 0;
+    struct timeval tempo_inicio, tempo_fim;
+    gettimeofday(&tempo_inicio, NULL);   
+
     char filename[] = "test2.pbm";  // Replace with your PBM file path
 
     FILE *file = fopen(filename, "r");
@@ -60,7 +67,7 @@ int main() {
     }
 
     // Perform the first transformation
-    #pragma omp parallel for
+    #pragma opm parallel for
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             if (image[i][j] == 0) {
@@ -89,7 +96,7 @@ int main() {
     }
 
     // Perform the second transformation
-    #pragma omp parallel for
+    #pragma opm parallel for
     for (int j = 0; j < width; j++) {
 
         for (int i = 0; i < height; i++) {
@@ -154,5 +161,14 @@ int main() {
         printf("\n");
     }
     
+
+// -----------------------------------------------------------------------------------------
+
+    gettimeofday(&tempo_fim, NULL);
+    tf = (double) tempo_fim.tv_usec + ((double) tempo_fim.tv_sec * (1000000.0));
+    ti = (double) tempo_inicio.tv_usec + ((double) tempo_inicio.tv_sec * (1000000.0));
+    tempo = (tf - ti) / 1000;
+    printf("\n\nTempo de execução: %.3f ms\n", tempo);
+
     return 0;
 }
