@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
 #define MAX_WIDTH 100
 #define MAX_HEIGHT 100
