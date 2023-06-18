@@ -3,8 +3,8 @@
 #include <string.h>
 #include <sys/time.h>
 
-#define MAX_WIDTH 1000
-#define MAX_HEIGHT 1000
+//#define MAX_WIDTH 1000
+//#define MAX_HEIGHT 1000
 
 typedef struct TTimes{
     double time;
@@ -14,22 +14,30 @@ int main()
 {
     //opening file to write
     //This file is going to be used in the python script to plot the graph
-    FILE *textFile = fopen("timesSequential.txt", "w");
+    FILE *textFile = fopen("meanTimesSequential.txt", "w");
     if (textFile== NULL) {
         printf("Error opening file!");
         return 1;
     }
 
+    char filenames[5][100] = {
+        "./images/image200.pbm",
+        "./images/image300.pbm",
+        "./images/image400.pbm",
+        "./images/image500.pbm",
+        "./images/image600.pbm"
+    };
     //printf("Size of TTimes: %ld\n", sizeof(TTimes));
 
     //creating a vector of TTimes to store the times
-    TTimes times[100];
+    //TTimes times[100];
 
-    double sumOfTimes = 0;
-    for (int i = 0; i < 100; i++)
-    {
 
-        char filename[] = "./images/test6.pbm"; // Replace with your PBM file path
+for(int n=0; n<5; n++){
+
+        char filename[100];
+        strcpy(filename, filenames[n]);
+        //char filename[] = "./images/image200.pbm"; // Replace with your PBM file path
 
         FILE *file = fopen(filename, "r");
         if (file == NULL)
@@ -63,17 +71,18 @@ int main()
             return 1;
         }
 
-
+        /*
         if (width > MAX_WIDTH || height > MAX_HEIGHT)
         {
             printf("Image dimensions exceed the maximum array size.\n");
             fclose(file);
             return 1;
         }
+        */
 
         // Read pixel data
         int i, j;
-        int image[MAX_HEIGHT][MAX_WIDTH];
+        int image[height][width];
 
         for (i = 0; i < height; i++)
         {
@@ -89,6 +98,12 @@ int main()
         }
 
         fclose(file);
+
+
+    double sumOfTimes = 0;
+    for (int i = 0; i < 100; i++)
+    {
+
 
         // Print the 2D array
         // printf("Image dimensions: %d x %d\n", width, height);
@@ -114,11 +129,11 @@ int main()
         {
             for (int j = 0; j < width; j++)
             {
-                if (image[i][j] == 1)
+                if (image[i][j] == 0)
                 {
                     for (int k = 0; k < width; k++)
                     {
-                        if (image[i][k] == 0)
+                        if (image[i][k] == 1)
                         {
                             int distanceSquared = (i - i) * (i - i) + (j - k) * (j - k);
 
@@ -157,7 +172,7 @@ int main()
 
                     int p = T1[k][j];
 
-                    if (T1[k][j] == 0 && image[k][j] != 0)
+                    if (T1[k][j] == 0 && image[k][j] != 1)
                     {
                         p = width * width;
                     }
@@ -169,9 +184,9 @@ int main()
                         sum = distanceSquared;
                     }
                 }
-                if (image[i][j] == 0)
+                if (image[i][j] == 1)
                     TDE[i][j] = 0;
-                else if (image[i][j] == 1)
+                else if (image[i][j] == 0)
                 {
                     TDE[i][j] = sum;
                 }
@@ -222,14 +237,18 @@ int main()
         tf = (double)tempo_fim.tv_usec + ((double)tempo_fim.tv_sec * (1000000.0));
         ti = (double)tempo_inicio.tv_usec + ((double)tempo_inicio.tv_sec * (1000000.0));
         tempo = (tf - ti) / 1000;
-        times[i].time = tempo;
+        //times[i].time = tempo;
         //printf("%.3f ms\n", times[i].time);
-        fprintf(textFile, "%.3f\n", times[i].time);
+        //fprintf(textFile, "%.3f\n", times[i].time);
         sumOfTimes += tempo;
     }
 
 // ---------------------------------------Print Mean Time------------------------------------------
+
+    double meanTime = sumOfTimes / 100;
+    fprintf(textFile, "%.3f\n", meanTime);
+    printf("\n\nMean time of execution: %.3f ms\n", meanTime);
+}
     fclose(textFile);
-    printf("\n\nMean time of execution: %.3f ms\n", sumOfTimes / 100);
     return 0;
 }

@@ -7,80 +7,95 @@ def main():
 
 
 #----------------------------------Analysis for Sequential Algorithm-------------------------------#
-    with open("../timesSequential.txt") as file:
+    with open("../meanTimesSequential.txt") as file:
         lines = file.readlines()
 
-    timesSequential = []
+    meanTimesSequential = []
 
     for line in lines:
         time = float(line.strip())
-        timesSequential.append(time)
+        meanTimesSequential.append(time)
     
-    mean = np.mean(timesSequential)
+    with open("../resolutions.txt") as file:
+        lines = file.readlines()
+
+    resolutions = []
+
+    for line in lines:
+        resolution = int(line.strip())
+        resolutions.append(resolution)
 
     plt.figure()
 
-    plt.plot(timesSequential, label = 'Time for each run')
+    
+    degree = 2
+    coefficients = np.polyfit(resolutions, meanTimesSequential, degree)
+    polynomial = np.poly1d(coefficients)
 
-    plt.axhline(y=mean, color='r', linestyle='--', label = 'Mean time') 
+    resolution_prediction = np.linspace(min(resolutions), max(resolutions), 100)
 
-    plt.xlabel("Run")
-    plt.ylabel("Time (s)")
-    plt.title("Time for each Run and Mean Time in Sequential Algorithm")
+    meanTimesSequential_prediction = polynomial(resolution_prediction)
 
+    plt.plot(resolutions, meanTimesSequential, 'o', label = 'Data')
+    plt.plot(resolution_prediction, meanTimesSequential_prediction, label = 'Predicted Curve')
+    plt.xlabel("Resolution")
+    plt.ylabel("Time (ms)")
+    
+    plt.savefig("predicted_curve_sequential.png", format="png", dpi=300)
 
-    plt.savefig('mean_plot_sequential.png', format='png', dpi=300)
 
     plt.close()
 
 
 #----------------------------------Analysis for Parallel Algorithm-------------------------------#
-    with open("../timesParallel.txt") as file:
+    with open("../meanTimesParallel.txt") as file:
         lines = file.readlines()
     
-    timesParallel = []
+    meanTimesParallel = []
 
     for line in lines:
         time = float(line.strip())
-        timesParallel.append(time)
+        meanTimesParallel.append(time)
     
-    mean = np.mean(timesParallel)
+    #mean = np.mean(timesParallel)
 
     plt.figure()
 
-    plt.plot(timesParallel, label = 'Time for each run')
 
-    plt.axhline(y=mean, color='r', linestyle='--', label = 'Mean time')
+    degree = 2
+    coefficients = np.polyfit(resolutions, meanTimesParallel, degree)
+    polynomial = np.poly1d(coefficients)
 
-    plt.xlabel("Run")
-    plt.ylabel("Time (s)")
-    plt.title("Time for each Run and Mean Time in Parallel Algorithm")
+    resolution_prediction = np.linspace(min(resolutions), max(resolutions), 100)
 
-    plt.savefig('mean_plot_parallel.png', format='png', dpi=300)
+    meanTimesParallel_prediction = polynomial(resolution_prediction)
 
+    plt.plot(resolutions, meanTimesParallel, 'o', label = 'Data')
+    plt.plot(resolution_prediction, meanTimesParallel_prediction, label = 'Predicted Curve')
+    plt.xlabel("Resolution")
+    plt.ylabel("Time (ms)")
+
+    plt.savefig("predicted_curve_parallel.png", format="png", dpi=300)
     plt.close()
 
 #------------------------------------Analysis for Speedup--------------------------------------#
 
     speedup = []
 
-    for i in range(len(timesSequential)):
-        speedup.append(timesSequential[i]/timesParallel[i])
+    for i in range(len(meanTimesSequential)):
+        speedup.append(meanTimesSequential[i]/meanTimesParallel[i])
 
     mean = np.mean(speedup)
 
     plt.figure()
-
-    plt.plot(speedup, label = 'Speedup for each Run')
-
-    plt.axhline(y=mean, color='r', linestyle='--', label = 'Mean Speedup')
-
-    plt.xlabel("Run")
+    
+    plt.plot(resolutions, speedup, 'o', label = 'Data')
+    
+    plt.xlabel("Resolution")
     plt.ylabel("Speedup")
-    plt.title("Speedup for each Run")
-
-    plt.savefig('speedup_plot.png', format='png', dpi=300)
-
+    plt.axhline(y=mean, color='r', linestyle='--', label = 'Mean Speedup')
+    plt.savefig("predicted_curve_speedup.png", format="png", dpi=300)
+    
     plt.close()
 
 #---------------------------------------------------------------------------------------------#
