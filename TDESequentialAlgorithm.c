@@ -114,11 +114,11 @@ int main()
         {
             for (int j = 0; j < width; j++)
             {
-                if (image[i][j] == 0)
+                if (image[i][j] == 1)
                 {
                     for (int k = 0; k < width; k++)
                     {
-                        if (image[i][k] == 1)
+                        if (image[i][k] == 0)
                         {
                             int distanceSquared = (i - i) * (i - i) + (j - k) * (j - k);
 
@@ -157,7 +157,7 @@ int main()
 
                     int p = T1[k][j];
 
-                    if (T1[k][j] == 0 && image[k][j] != 1)
+                    if (T1[k][j] == 0 && image[k][j] != 0)
                     {
                         p = width * width;
                     }
@@ -169,9 +169,9 @@ int main()
                         sum = distanceSquared;
                     }
                 }
-                if (image[i][j] == 1)
+                if (image[i][j] == 0)
                     TDE[i][j] = 0;
-                else if (image[i][j] == 0)
+                else if (image[i][j] == 1)
                 {
                     TDE[i][j] = sum;
                 }
@@ -179,7 +179,7 @@ int main()
         }
 
 // ----------------------------------------Print Data------------------------------------------
-        /*
+       /* 
         printf("Image data:\n");
 
         for (i = 0; i < height; i++) {
@@ -214,8 +214,8 @@ int main()
             }
             printf("\n");
         }
+        
         */
-
 // ---------------------------------------End Timer------------------------------------------
 
         gettimeofday(&tempo_fim, NULL);
