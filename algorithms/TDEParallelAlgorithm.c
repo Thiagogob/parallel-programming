@@ -29,11 +29,11 @@ int main()
     }
 
     char filenames[5][100] = {
-        "./images/image200.pbm",
-        "./images/image300.pbm",
-        "./images/image400.pbm",
-        "./images/image500.pbm",
-        "./images/image600.pbm"
+        "../images/image200.pbm",
+        "../images/image300.pbm",
+        "../images/image400.pbm",
+        "../images/image500.pbm",
+        "../images/image600.pbm"
     };
 
     //TTimes times[100];
@@ -100,25 +100,7 @@ for(int n=0; n<5; n++){
     for (int i = 0; i < 100; i++)
     {
 
-        /*
-        if (width > MAX_WIDTH || height > MAX_HEIGHT)
-        {
-            printf("Image dimensions exceed the maximum array size.\n");
-            fclose(file);
-         
-         
-            return 1;
-        }
-        */
-
-
-
-        // Print the 2D array
-        // printf("Image dimensions: %d x %d\n", width, height);
-
 //--------------------------------Starting Saito and Toriwaki algorithm and setting timer------------------------------------------------------------
-
-
 
         double ti, tf, tempo;
         ti = tf = tempo = 0;
@@ -249,9 +231,6 @@ for(int n=0; n<5; n++){
         tf = (double)tempo_fim.tv_usec + ((double)tempo_fim.tv_sec * (1000000.0));
         ti = (double)tempo_inicio.tv_usec + ((double)tempo_inicio.tv_sec * (1000000.0));
         tempo = (tf - ti) / 1000;
-        //times[i].time = tempo;
-        // printf("\n\nTempo de execução: %.3f ms\n", tempo);
-        //fprintf(textFile, "%.3f\n", times[i].time);
         sumOfTimes += tempo;
     }
 

@@ -5,4 +5,8 @@ I'll be taking a look on the effectiveness of the saito-toriwaki algorithm for c
 
 I also pretend to build a script to make an analysis of it
 
-The code is compiled with gcc. Do not forget to add the -fopenmp flag to test the parallel programming alg 
+The code is compiled with gcc. Do not forget to add the -fopenmp flag to test the parallel programming algorithm
+
+gcc -O3 -fopenmp -o TDEParallel TDEParallelAlgorithm.c
+
+gcc -O3 TDESequentialAlgorithm.c -o TDESequential

@@ -3,12 +3,6 @@
 #include <string.h>
 #include <sys/time.h>
 
-//#define MAX_WIDTH 1000
-//#define MAX_HEIGHT 1000
-
-typedef struct TTimes{
-    double time;
-}TTimes;
 
 int main()
 {
@@ -27,10 +21,6 @@ int main()
         "./images/image500.pbm",
         "./images/image600.pbm"
     };
-    //printf("Size of TTimes: %ld\n", sizeof(TTimes));
-
-    //creating a vector of TTimes to store the times
-    //TTimes times[100];
 
 
 for(int n=0; n<5; n++){
@@ -71,14 +61,7 @@ for(int n=0; n<5; n++){
             return 1;
         }
 
-        /*
-        if (width > MAX_WIDTH || height > MAX_HEIGHT)
-        {
-            printf("Image dimensions exceed the maximum array size.\n");
-            fclose(file);
-            return 1;
-        }
-        */
+
 
         // Read pixel data
         int i, j;
@@ -104,9 +87,6 @@ for(int n=0; n<5; n++){
     for (int i = 0; i < 100; i++)
     {
 
-
-        // Print the 2D array
-        // printf("Image dimensions: %d x %d\n", width, height);
 
 // -------------------------------Start Saito and Toriwaki algorithm and set timer-------------------------------------- 
 

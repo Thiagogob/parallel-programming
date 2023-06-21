@@ -7,7 +7,7 @@ def main():
 
 
 #----------------------------------Analysis for Sequential Algorithm-------------------------------#
-    with open("../meanTimesSequential.txt") as file:
+    with open("../algorithms/meanTimesSequential.txt") as file:
         lines = file.readlines()
 
     meanTimesSequential = []
@@ -16,7 +16,7 @@ def main():
         time = float(line.strip())
         meanTimesSequential.append(time)
     
-    with open("../resolutions.txt") as file:
+    with open("../algorithms/resolutions.txt") as file:
         lines = file.readlines()
 
     resolutions = []
@@ -48,7 +48,7 @@ def main():
 
 
 #----------------------------------Analysis for Parallel Algorithm-------------------------------#
-    with open("../meanTimesParallel.txt") as file:
+    with open("../algorithms/meanTimesParallel.txt") as file:
         lines = file.readlines()
     
     meanTimesParallel = []
@@ -57,7 +57,6 @@ def main():
         time = float(line.strip())
         meanTimesParallel.append(time)
     
-    #mean = np.mean(timesParallel)
 
     plt.figure()
 
