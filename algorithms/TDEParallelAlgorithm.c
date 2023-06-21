@@ -3,12 +3,6 @@
 #include <string.h>
 #include <sys/time.h>
 
-//#define MAX_WIDTH 1000
-//#define MAX_HEIGHT 1000
-
-typedef struct TTimes{
-    double time;
-}TTimes;
 
 
 int main()
@@ -36,7 +30,7 @@ int main()
         "../images/image600.pbm"
     };
 
-    //TTimes times[100];
+
 for(int n=0; n<5; n++){
         char filename[100];
         strcpy(filename, filenames[n]);
