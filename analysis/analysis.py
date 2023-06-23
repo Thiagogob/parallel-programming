@@ -88,8 +88,11 @@ def main():
 
     plt.figure()
     
+    plt.ylim(0, 3)
+    
     plt.plot(resolutions, speedup, 'o', label = 'Data')
     
+
     plt.xlabel("Resolution")
     plt.ylabel("Speedup")
     plt.axhline(y=mean, color='r', linestyle='--', label = 'Mean Speedup')

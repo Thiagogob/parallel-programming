@@ -15,11 +15,11 @@ int main()
     }
 
     char filenames[5][100] = {
-        "./images/image200.pbm",
-        "./images/image300.pbm",
-        "./images/image400.pbm",
-        "./images/image500.pbm",
-        "./images/image600.pbm"
+        "../images/image200.pbm",
+        "../images/image300.pbm",
+        "../images/image400.pbm",
+        "../images/image500.pbm",
+        "../images/image600.pbm"
     };
 
 
