@@ -96,10 +96,10 @@ for(int n=0; n<5; n++){
 
 //--------------------------------Starting Saito and Toriwaki algorithm and setting timer------------------------------------------------------------
 
-        double ti, tf, tempo;
-        ti = tf = tempo = 0;
-        struct timeval tempo_inicio, tempo_fim;
-        gettimeofday(&tempo_inicio, NULL);
+        double ti, tf, time;
+        ti = tf = time = 0;
+        struct timeval time_init, time_final;
+        gettimeofday(&time_init, NULL);
 
         int T1[height][width];
         for (int i = 0; i < height; i++)
@@ -221,11 +221,11 @@ for(int n=0; n<5; n++){
     */
 // ------------------------------------End Timer--------------------------------------------------
 
-        gettimeofday(&tempo_fim, NULL);
-        tf = (double)tempo_fim.tv_usec + ((double)tempo_fim.tv_sec * (1000000.0));
-        ti = (double)tempo_inicio.tv_usec + ((double)tempo_inicio.tv_sec * (1000000.0));
-        tempo = (tf - ti) / 1000;
-        sumOfTimes += tempo;
+        gettimeofday(&time_final, NULL);
+        tf = (double)time_final.tv_usec + ((double)time_final.tv_sec * (1000000.0));
+        ti = (double)time_init.tv_usec + ((double)time_init.tv_sec * (1000000.0));
+        time = (tf - ti) / 1000;
+        sumOfTimes += time;
     }
 
 // ------------------------------------Print Mean Time--------------------------------------------
